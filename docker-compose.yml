@@ -1,9 +1,9 @@
 version: '3'
 services:
-  postgresql:
+  database:
     image: postgres:10
-    container_name: postgresql
-    hostname: postgresql-server
+    container_name: database
+    hostname: database
     ports:
       - 5432:5432
     volumes:
@@ -30,8 +30,23 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@testdomain.com
       - PGADMIN_DEFAULT_PASSWORD=postgres
     depends_on:
-      - postgresql
+      - database
     restart: always
+
+  backend:
+    image: openjdk:11
+    container_name: backend
+    hostname: backend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command:
+      ./mvnw spring-boot:run
+    tty: true
+    depends_on:
+      - database
 
 volumes:
   db-data:
