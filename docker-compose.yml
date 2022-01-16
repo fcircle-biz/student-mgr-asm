@@ -31,7 +31,7 @@ services:
       ./mvnw spring-boot:run
     depends_on:
       - database
-#    tty: true
+    tty: true
 
   frontend:
     build: ./frontend
@@ -42,8 +42,8 @@ services:
     volumes:
       - "./frontend:/app"
     working_dir: /app/node
-    command:
-      ng serve --host=0.0.0.0
+#    command:
+#      ng serve --host=0.0.0.0
     depends_on:
       - backend
     tty: true
@@ -67,5 +67,5 @@ services:
 volumes:
   db-data:
     driver: local
-  tool-data:
-    driver: local
+#  tool-data:
+#    driver: local
