@@ -8,3 +8,11 @@
 root@frontend:/app/node#npm update
 root@frontend:/app/node#ng serve --host=0.0.0.0
 ```
+
+localhost:4200 にアクセス
+
+## ログ
+```
+docker-compose logs -f
+```
+
