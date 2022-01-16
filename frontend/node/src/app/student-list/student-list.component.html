@@ -1,0 +1,36 @@
+<h1>{{title}}</h1>
+
+<p>
+    生徒名：<input type="text" name="studentName" [(ngModel)]="studentC.studentName">
+</p>
+<p>
+    都道府県：<select name="prefId" [(ngModel)]="studentC.prefId">
+        <option value="">(未選択)</option>
+        <option *ngFor="let prefCode of prefCodeMap | keyvalue" [ngValue]="prefCode.key">
+            {{prefCode.value}}
+        </option>
+      </select><br>
+</p>
+
+<button (click)="doSearch()">検索</button>
+<br>
+<br>
+
+<table border="1">
+    <tr>
+        <th>生徒ID</th>
+        <th>生徒名</th>
+        <th>性別</th>
+        <th>都道府県</th>
+        <th>年齢</th>
+        <th>生年月日</th>
+    </tr>
+    <tr *ngFor="let student of studentList">
+        <td>{{student.studentId}}</td>
+        <td>{{student.studentName}}</td>
+        <td>{{genderCodeMap[student.genderCd]}}</td>
+        <td>{{prefCodeMap[student.prefId]}}</td>
+        <td>{{student.age}}</td>
+        <td>{{student.birthday | date:"yyyy/MM/dd"}}</td>
+    </tr>
+</table>

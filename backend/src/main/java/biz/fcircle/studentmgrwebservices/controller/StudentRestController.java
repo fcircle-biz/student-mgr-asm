@@ -3,6 +3,7 @@ package biz.fcircle.studentmgrwebservices.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import biz.fcircle.studentmgrwebservices.service.StudentService;
 
 @RestController
 @RequestMapping("api")
+@CrossOrigin
 public class StudentRestController {
     
     @Autowired
@@ -22,7 +24,7 @@ public class StudentRestController {
     @GetMapping("studentList")
     public List<Student> studentList(
         @RequestParam(name="studentName", required=false) String studentName
-        , @RequestParam(name="prefId", required=false) String prefId) {
+        , @RequestParam(name="prefId", required=false) Integer prefId) {
 
         StudentC studentC = new StudentC();
         studentC.setStudentName(studentName);

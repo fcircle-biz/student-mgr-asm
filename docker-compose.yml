@@ -17,22 +17,6 @@ services:
       - POSTGRES_INITDB_ARGS:--encoding=UTF-8 --locale=C
     restart: always
 
-  pgadmin4:
-    image: dpage/pgadmin4
-    container_name: pgadmin4
-    hostname: pgadmin4
-    ports:
-      - 8000:80
-    volumes:
-      -  tool-data:/var/lib/pgadmin
-    environment:
-      - TZ=Asia/Tokyo
-      - PGADMIN_DEFAULT_EMAIL=admin@testdomain.com
-      - PGADMIN_DEFAULT_PASSWORD=postgres
-    depends_on:
-      - database
-    restart: always
-
   backend:
     image: openjdk:11
     container_name: backend
@@ -49,20 +33,36 @@ services:
       - database
 #    tty: true
 
-#  frontend:
-#    build: ./frontend
-#    container_name: frontend
-#    hostname: frontend
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    hostname: frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - "./frontend:/app"
+    working_dir: /app/node
+    command:
+      ng serve --host=0.0.0.0
+    depends_on:
+      - backend
+    tty: true
+
+#  pgadmin4:
+#    image: dpage/pgadmin4
+#    container_name: pgadmin4
+#    hostname: pgadmin4
 #    ports:
-#      - "4200:4200"
+#      - 8000:80
 #    volumes:
-#      - "./frontend:/app"
-#    working_dir: /app/node
-##    command:
-##      ng serve --host=0.0.0.0
+#      -  tool-data:/var/lib/pgadmin
+#    environment:
+#      - TZ=Asia/Tokyo
+#      - PGADMIN_DEFAULT_EMAIL=admin@testdomain.com
+#      - PGADMIN_DEFAULT_PASSWORD=postgres
 #    depends_on:
-#      - backend
-#    tty: true
+#      - database
+#    restart: always
 
 volumes:
   db-data:

@@ -6,5 +6,5 @@ import lombok.Data;
 public class StudentC {
     
     private String studentName;
-	private String prefId;
+	private Integer prefId;
 }
