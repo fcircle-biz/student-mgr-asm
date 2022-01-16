@@ -18,3 +18,7 @@ npm updateの実行は初回のみ。
 docker-compose logs -f
 ```
 
+## 全削除
+```
+docker-compose down --rmi all --volumes --remove-orphans
+```
